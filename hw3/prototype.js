@@ -1,48 +1,44 @@
-class School{
-    constructor(options){
-        this.name = options.name
-        this.language = options.language
-    }
-    languages(){
-        console.log('I speak', this.language)
-    }
+const School = function(options) {
+    this.name = options.name
+    this.language = options.language
+   }
 
+   School.prototype.languages = function(){
+    console.log('I speak', this.language)
 }
-
-const student = new School({name:'Liza',language:'English'})
-console.log(student)
+const student = new School({name:'Liza',language:'English'}) 
 student.languages()
+console.log(student)
 
-class University extends School{
-constructor(options){
-    super(options)
 
+const Student1 = function(options){
+    School.apply(this,arguments)
     this.age = options.age
     this.studyHours = options.studyHours
-
 }
-ages(){hhh
-    super.languages()
-    console.log('I am', this.age ,'years old')
+Student1.prototype = Object.create(School.prototype)
+Student1.prototype.constructor = Student1
+
+Student1.prototype.languages = function(){
+    School.prototype.languages.apply(this,arguments)
+    console.log('I speak', this.language + " and i am " + this.age)
+    
 }
-}
-const student1 = new University({name:'Anna',language:'French',age:23,studyHours:8})
-student1.ages()
+const student1 = new Student1({name:'Anna',language:'French',age:23,studyHours:8})
+console.log(student1)
+student1.languages()
 
 
-
-
-class Work extends University{
-constructor(options){
-    super(options)
+const Worker = function(options){
+    Student1.apply(this,arguments)
     this.salary = options.salary
 }
-growSalary(){
-    super.ages()
-   let newSalary = this.salary + 300
-    console.log('My salary in 3 months will be', newSalary)
-
+Worker.prototype = Object.create(Student1.prototype)
+Worker.prototype.constructor = Worker
+Worker.prototype.languages = function(){
+    let newSalary = this.salary + 300
+    console.log('I speak', this.language + ' and my salary in 3 months will be', newSalary)
 }
-}
-const worker = new Work({name:'Tom',language:'Russian',age:47,salary:1000});
-worker.growSalary()
+const worker = new Worker({name:'Tom',language:'Russian',age:47,salary:1000});
+worker.languages()
+console.log(worker)

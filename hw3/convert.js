@@ -1,7 +1,8 @@
 const fs = require('fs');
 var json2xls = require('json2xls');
 const filename = 'jsonToXlsx.xlsx';
-fs.readFile('./jsonToXlsx.json', 'utf8', (err, allJson) => {
+const filePath = './jsonToXlsx.json'
+fs.readFile(filePath, 'utf8', (err, allJson) => {
 
 
     const json = JSON.parse(allJson)
